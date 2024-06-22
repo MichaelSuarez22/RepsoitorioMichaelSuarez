@@ -10,7 +10,6 @@ import cr.ac.una.andersonRymichaelS.dao.WikiDao
 @Database(entities = [MarkedPlace::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
-
     abstract fun wikiDao(): WikiDao
 
     companion object {

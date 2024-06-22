@@ -13,6 +13,4 @@ interface WikiDao {
 
     @Query("SELECT * FROM marked_places")
     suspend fun getAllMarkedPlaces(): List<MarkedPlace>
-
-
 }
