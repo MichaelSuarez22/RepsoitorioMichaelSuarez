@@ -1,8 +1,6 @@
-// MainActivity.kt (actualización)
 package cr.ac.una.andersonRymichaelS
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -13,16 +11,16 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
 class MainActivity : AppCompatActivity() {
+
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
 
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Cargar el fragmento WikipediaFragment
+        // Cargar el fragmento WikipediaFragment si no está guardado en el estado anterior
         if (savedInstanceState == null) {
             val fragment = WikipediaFragment()
             supportFragmentManager.beginTransaction()
@@ -85,11 +83,7 @@ class MainActivity : AppCompatActivity() {
     private fun handleIntent(intent: Intent?) {
         val placeName = intent?.getStringExtra("place_name")
         if (placeName != null) {
-            val fragment = ArticleFragment()
-            val bundle = Bundle()
-            bundle.putString("article_url", "https://en.wikipedia.org/wiki/$placeName")
-            fragment.arguments = bundle
-
+            val fragment = ArticleFragment.newInstance("https://en.wikipedia.org/wiki/$placeName")
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .addToBackStack(null)

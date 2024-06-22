@@ -1,15 +1,19 @@
 package cr.ac.una.andersonRymichaelS
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import cr.ac.una.andersonRymichaelS.Entity.MarkedPlace
 
-class MarkedPlacesAdapter(private var places: List<MarkedPlace>) : RecyclerView.Adapter<MarkedPlacesAdapter.ViewHolder>() {
+class MarkedPlacesAdapter(private var places: List<MarkedPlace>) :
+    RecyclerView.Adapter<MarkedPlacesAdapter.ViewHolder>() {
 
     fun updateData(newPlaces: List<MarkedPlace>) {
         places = newPlaces
@@ -17,7 +21,8 @@ class MarkedPlacesAdapter(private var places: List<MarkedPlace>) : RecyclerView.
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_marked_place, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.list_item_marked_place, parent, false)
         return ViewHolder(view)
     }
 
@@ -25,14 +30,30 @@ class MarkedPlacesAdapter(private var places: List<MarkedPlace>) : RecyclerView.
         val place = places[position]
         holder.placeName.text = place.placeName
         holder.placeDescription.text = place.wikipediaArticleTitle
-        holder.detectedAt.text = java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(place.detectedAt)
+        holder.detectedAt.text =
+            java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(place.detectedAt)
 
         // Cargar la imagen del artículo de Wikipedia
-        val imageUrl = "https://en.wikipedia.org/wiki/Special:FilePath/${place.wikipediaArticleTitle.replace(" ", "_")}"
+        val imageUrl =
+            "https://en.wikipedia.org/wiki/Special:FilePath/${place.wikipediaArticleTitle.replace(
+                " ",
+                "_"
+            )}"
         Glide.with(holder.itemView.context)
             .load(imageUrl)
             .placeholder(android.R.drawable.ic_menu_report_image)
             .into(holder.articleImage)
+
+        // Manejar clic en el elemento para abrir ArticleFragment
+        holder.itemView.setOnClickListener {
+            val fragment =
+                ArticleFragment.newInstance("https://en.wikipedia.org/wiki/${place.wikipediaArticleTitle}")
+            val activity = holder.itemView.context as AppCompatActivity
+            activity.supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     override fun getItemCount(): Int = places.size

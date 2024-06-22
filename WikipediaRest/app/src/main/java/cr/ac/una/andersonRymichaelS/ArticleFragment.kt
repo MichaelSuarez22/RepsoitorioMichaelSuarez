@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 
 class ArticleFragment : Fragment() {
@@ -27,6 +28,12 @@ class ArticleFragment : Fragment() {
     }
 
     private fun loadArticle(url: String) {
+        webView.webViewClient = object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+                // Permitir que todas las URLs se carguen en este WebView
+                return false
+            }
+        }
         webView.loadUrl(url)
     }
 
