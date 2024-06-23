@@ -32,7 +32,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Show Marked Places" />
+            android:text="Mostrar lugares" />
 
         <!-- Button to Show Parameters -->
         <Button
@@ -40,13 +40,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Show Parameters" />
+            android:text="Mostrar paramteros" />
 
         <Button
             android:id="@+id/showTopPlacesButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Show Top Places" />
+            android:text="Ver top de lugares" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
