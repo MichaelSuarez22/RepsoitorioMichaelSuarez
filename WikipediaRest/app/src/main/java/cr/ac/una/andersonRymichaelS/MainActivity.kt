@@ -67,6 +67,16 @@ class MainActivity : AppCompatActivity() {
                 .addToBackStack(null)
                 .commit()
         }
+
+        // Botón para mostrar los lugares más visitados
+        val showTopPlacesButton = findViewById<Button>(R.id.showTopPlacesButton)
+        showTopPlacesButton.setOnClickListener {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, TopFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
     }
 
     override fun onRequestPermissionsResult(
