@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment
 class ParametersFragment : Fragment() {
 
     private lateinit var sharedPreferences: SharedPreferences
-    private val defaultNumberOfPlaces = 5 // Valor por defecto
+    private val defaultNumberOfPlaces = 5
 
     @SuppressLint("StringFormatInvalid")
     override fun onCreateView(
@@ -28,26 +28,26 @@ class ParametersFragment : Fragment() {
             Context.MODE_PRIVATE
         )
 
-        // Referencias a los elementos de la vista
+
         val numberPicker = view.findViewById<NumberPicker>(R.id.numberPickerPlaces)
         val btnSave = view.findViewById<Button>(R.id.btnSave)
         val textView = view.findViewById<TextView>(R.id.textView)
 
-        // Cargar el valor guardado de SharedPreferences
+
         val numberOfPlaces = sharedPreferences.getInt(
             getString(R.string.pref_key_number_of_places),
             defaultNumberOfPlaces
         )
 
-        // Configurar el NumberPicker
+
         numberPicker.minValue = 1
         numberPicker.maxValue = 20
         numberPicker.value = numberOfPlaces
 
-        // Mostrar el valor actual
+
         textView.text = getString(R.string.number_of_visits, numberOfPlaces)
 
-        // Guardar el nuevo valor cuando se cambie
+
         btnSave.setOnClickListener {
             val newValue = numberPicker.value
             saveNumberOfPlaces(newValue)

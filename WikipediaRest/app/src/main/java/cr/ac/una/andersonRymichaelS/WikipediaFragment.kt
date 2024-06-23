@@ -27,7 +27,7 @@ class WikipediaFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         val view = inflater.inflate(R.layout.fragment_wikipedia, container, false)
 
         searchButton = view.findViewById(R.id.searchButton)
@@ -37,15 +37,15 @@ class WikipediaFragment : Fragment() {
         adapter = WikipediaArticleAdapter(requireContext(), articles)
         articleListView.adapter = adapter
 
-        // Limpiar la caché del WebView
+
         articleListView.clearFocus()
 
-        // Cargar la URL inicial si hay conexión a Internet
-        if (isNetworkAvailable()) {
+
+       /* if (isNetworkAvailable()) {
             loadWikipediaPage("Costa_Rica")
         } else {
             Toast.makeText(activity, "No internet connection", Toast.LENGTH_SHORT).show()
-        }
+        }*/
 
         searchButton.setOnClickListener {
             val title = searchEditText.text.toString().replace(" ", "_")

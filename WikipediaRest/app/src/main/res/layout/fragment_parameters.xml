@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- TextView to show the current number of visits -->
+  
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="16dp" />
 
-    <!-- NumberPicker for selecting the number of places -->
+
     <NumberPicker
         android:id="@+id/numberPickerPlaces"
         android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="16dp" />
 
-    <!-- Button to save the selected number of places -->
+
     <Button
         android:id="@+id/btnSave"
         android:layout_width="wrap_content"
