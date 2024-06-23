@@ -11,19 +11,35 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/showMarkedPlacesButton"
+        app:layout_constraintBottom_toTopOf="@id/buttonContainer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Button to Show Marked Places -->
-    <Button
-        android:id="@+id/showMarkedPlacesButton"
-        android:layout_width="wrap_content"
+    <!-- Button Container -->
+    <LinearLayout
+        android:id="@+id/buttonContainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Show Marked Places"
+        android:orientation="horizontal"
         android:layout_margin="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
 
+        <!-- Button to Show Marked Places -->
+        <Button
+            android:id="@+id/showMarkedPlacesButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Show Marked Places" />
+
+        <!-- Button to Show Parameters -->
+        <Button
+            android:id="@+id/showParametersButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Show Parameters" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

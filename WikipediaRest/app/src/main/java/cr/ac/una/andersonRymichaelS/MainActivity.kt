@@ -58,6 +58,15 @@ class MainActivity : AppCompatActivity() {
                 .addToBackStack(null)
                 .commit()
         }
+
+        // Botón para mostrar los parámetros
+        val showParametersButton = findViewById<Button>(R.id.showParametersButton)
+        showParametersButton.setOnClickListener {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, ParametersFragment())
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     override fun onRequestPermissionsResult(
