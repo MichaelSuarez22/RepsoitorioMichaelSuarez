@@ -176,12 +176,14 @@ class LocationService : Service() {
     private fun saveMarkedPlace(placeName: String, wikipediaArticleTitle: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val currentTimeMillis = System.currentTimeMillis()
+            val visits = 0.0
             val markedPlace = MarkedPlace(
                 latitude = lastLatitude,
                 longitude = lastLongitude,
                 detectedAt = currentTimeMillis,
                 wikipediaArticleTitle = wikipediaArticleTitle,
-                placeName = placeName
+                placeName = placeName,
+                visits = visits
             )
             wikiDao.insertMarkedPlace(markedPlace)
         }

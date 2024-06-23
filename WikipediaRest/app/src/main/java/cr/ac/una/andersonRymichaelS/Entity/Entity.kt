@@ -10,6 +10,7 @@ data class MarkedPlace(
     val longitude: Double,
     val detectedAt: Long,
     val wikipediaArticleTitle: String, // Título del artículo de Wikipedia
-    val placeName: String
+    val placeName: String,
+    val visits: Double
 
 )

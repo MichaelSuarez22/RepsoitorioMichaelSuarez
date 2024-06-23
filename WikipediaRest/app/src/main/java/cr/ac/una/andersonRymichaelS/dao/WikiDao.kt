@@ -13,4 +13,8 @@ interface WikiDao {
 
     @Query("SELECT * FROM marked_places")
     suspend fun getAllMarkedPlaces(): List<MarkedPlace>
+
+    @Query("SELECT * FROM marked_places ORDER BY visits DESC LIMIT :numberOfPlaces")
+    suspend fun getTopMarkedPlaces(numberOfPlaces: Int): List<MarkedPlace>
+
 }

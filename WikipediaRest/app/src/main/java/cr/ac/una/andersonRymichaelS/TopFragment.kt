@@ -1,55 +1,60 @@
+// TopFragment.kt
 package cr.ac.una.andersonRymichaelS
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import cr.ac.una.andersonRymichaelS.Entity.MarkedPlace
+import cr.ac.una.andersonRymichaelS.db.AppDatabase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-/**
- * A simple [Fragment] subclass.
- * Use the [TopFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class TopFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: TopPlacesAdapter
+    private lateinit var database: AppDatabase
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.fragment_top, container, false)
+        recyclerView = view.findViewById(R.id.recyclerViewTop)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        adapter = TopPlacesAdapter(emptyList())
+        recyclerView.adapter = adapter
+        database = AppDatabase.getDatabase(requireContext())
+
+        loadTopPlaces()
+
+        return view
+    }
+
+    private fun loadTopPlaces() {
+        lifecycleScope.launch {
+            // Obtener el número de lugares configurados en ParametersFragment
+            val sharedPreferences = requireActivity().getSharedPreferences(
+                getString(R.string.preference_file_key),
+                Context.MODE_PRIVATE
+            )
+            val numberOfPlaces = sharedPreferences.getInt(
+                getString(R.string.pref_key_number_of_places),
+                5 // Valor por defecto
+            )
+
+            // Cargar los lugares más visitados desde la base de datos
+            val topPlaces = withContext(Dispatchers.IO) {
+                database.wikiDao().getTopMarkedPlaces(numberOfPlaces)
+            }
+            adapter.updateData(topPlaces)
         }
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_top, container, false)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TopFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic fun newInstance(param1: String, param2: String) =
-                TopFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
-                }
     }
 }
